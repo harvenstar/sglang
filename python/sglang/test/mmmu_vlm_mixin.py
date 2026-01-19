@@ -6,6 +6,7 @@ from abc import ABC
 from types import SimpleNamespace
 
 from sglang.srt.utils import kill_process_tree
+from sglang.test.kits.mmmu_vlm_kit import _run_lmms_eval_with_retry
 from sglang.test.test_utils import (
     DEFAULT_TIMEOUT_FOR_SERVER_LAUNCH,
     DEFAULT_URL_FOR_TEST,
@@ -81,11 +82,7 @@ class MMMUVLMMixin(ABC):
             *self.mmmu_args,
         ]
 
-        subprocess.run(
-            cmd,
-            check=True,
-            timeout=3600,
-        )
+        _run_lmms_eval_with_retry(cmd, timeout=3600)
 
     def _run_vlm_mmmu_test(
         self,
